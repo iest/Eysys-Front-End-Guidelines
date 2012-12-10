@@ -1,11 +1,11 @@
 # Eysys Front-End Coding Guidelines
 *Last updated - 10/12/12*
-We currently write CSS in [less](www.lesscss.org), vanilla javascript, and typically write [jade](http://jade-lang.com) that compiles to HTML and scala/japid/whatever java template language we're working on today.
+We currently write CSS in [LESS](www.lesscss.org), vanilla javascript, and typically write [jade](http://jade-lang.com) that compiles to HTML/rythm.
 This document has been written to keep track of the way we write our front-end code, to keep it as consistent as possible between developers & designers. 
 
 
 ### LESS
-We currently use less because it's quick to learn, and is pretty much vanilla CSS with mixins and variables.
+We currently use LESS because it's quick to learn, and is pretty much vanilla CSS with mixins and variables.
 
 #### Units
 Pixel-perfect designs no longer exist. We design for *The Web*, which means that our designs are going to be viewed on an infinite number of screen sizes with an infinite number of pixel densities. With that in mind:
@@ -20,21 +20,21 @@ Pixel-perfect designs no longer exist. We design for *The Web*, which means that
 
 #### Naming and Defining Classes
 * Keep names as short as possible as to still make sense — e.g. `.report-nav` not `.rprt-nav`, and `.sys-nav` not `.system-nav`
-* Don't use `#id`s as hooks *ever*. Use semantically defined classes instead — e.g. `.header-nav`
-* Prepend an underscore for javascript-specific classes, to be used alongside style classes. That way we can have one without the other. *Don't style javascript hooks* — e.g. `._js-hook .style-hook`
+* Don't use `#id`s as styling hooks. Use semantically defined classes instead — e.g. `.header-nav`
+* Keep styling classes separate fro javascript manipulation classes — e.g. `.report-preview.js-report-preview`. This means we *can* have one without the other.
 * Because CSS uses American spelling (e.g 'color'), for the sake of clarity use the american spelling in variables you might have — e.g. `@color-white` not `@colour-white` (you get used to it)
-* Don't nest deeper than 3 levels
+* Don't nest deeper than 3 levels when using LESS. Not only does it make it easier to read, but it helps to keep selectors shorter, [optimising CSS parsing speed](https://speakerdeck.com/jonrohan/githubs-css-performance).
 * When defining classes, put the most important definitions first (`position`, `display`…), and put nested elements at the end
 * If nesting `@media` queries, put these after nested elements, right at the end of the definition.
 * Definitions that are only 1 line are put inline — e.g. `.foo { display: none;}`
-* Don't nest under `@media` queries. Instead, put an `// end` comment after the closing bracket.
+* Don't nest under `@media` queries. Instead, put an `// end` comment after the closing bracket so we can keep track of it.
 
 #### Output
 When outputting, compress in the YUI style (compressed down to 1 line, no whitespace). Make sure that `/*!` comments are in the output, but all other comments are excluded.
-CodeKit's LESS compiler won't output standard `//` style comments, use that to your advantage.
+CodeKit's LESS compiler won't output standard `//` style comments, use that to your advantage. (Don't forget your attributions).
 
 #### Floats and clearfixes
-As we're developing a lot of web apps, we're going to want to build navigations and interface elements that aren't straightforward to build in HTML and CSS. Using floats can be a effective method to get the kind of layouts we want, and we use a micro-clearfix hack to fix problems that floats cause. It looks like this:
+As we're developing a lot of web apps, we're going to want to build navigations and interface elements that aren't straightforward to build in HTML and CSS (static toolbars, window-in-window scrolling etc.). Using floats can be a effective method to get the kind of layouts we want, and we use a micro-clearfix hack to fix problems that floats cause. This is it:
     .cf() { // Micro ClearFix hack
         *zoom:1;
         &:before, &:after {
@@ -43,9 +43,9 @@ As we're developing a lot of web apps, we're going to want to build navigations 
         }
         &:after { clear:both; }
     }
-Use as a mixin by adding into elements that have floats within them — e.g. on a `ul` with floated `li` elements inside
+Use as a mixin by adding to elements that have floats within them — e.g. on a `ul` with floated `li` elements inside
 
 
 ### Jade/HTML
 * Use HTML5 elements for semanticity, but use with CSS classes to style. Don't style the elements themselves — e.g. `header.top-toolbar`
-* Make sure jade is compiled minified, otherwise whitespace could mess up your designs
+* Make sure jade is outputted minified, otherwise whitespace could mess up your designs
