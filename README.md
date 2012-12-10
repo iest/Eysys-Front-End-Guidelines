@@ -1,2 +1,0 @@
-Eysys-Front-End-Guidelines
-==========================
