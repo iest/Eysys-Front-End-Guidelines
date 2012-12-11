@@ -9,6 +9,7 @@ We currently use LESS because it's quick to learn, and is pretty much vanilla CS
 
 #### Units
 Pixel-perfect designs no longer exist. We design for *The Web*, which means that our designs are going to be viewed on an infinite number of screen sizes with an infinite number of pixel densities. With that in mind:
+
 * Use percentages for layouts
 * Use `em`s for pretty much everything - including `@media` queries
 * Only use pixels for stylistic effects, not stuff like positioning — e.g. `text-shadow` and `box-shadow`, not `top` and `margin`, and definitely not `@media` queries
@@ -43,9 +44,16 @@ As we're developing a lot of web apps, we're going to want to build navigations 
         }
         &:after { clear:both; }
     }
-Use as a mixin by adding to elements that have floats within them — e.g. on a `ul` with floated `li` elements inside
+Use as a mixin by adding to elements that have floats within them — e.g. on a `ul` with floated `li` elements inside.
 
 
-### Jade/HTML
+### Jade
+We use [jade](jade-lang.com) because it means we can write really dry html. If you're lucky enough to have a mac with codekit installed, you can write html really quickly and see the results instantly.
+
 * Use HTML5 elements for semanticity, but use with CSS classes to style. Don't style the elements themselves — e.g. `header.top-toolbar`
 * Make sure jade is outputted minified, otherwise whitespace could mess up your designs
+* Build with a base template that pulls all the layout together
+	* Put the head contents in layout.jade, as an extendable `block`
+	* Put a `body` `block` in as well
+	* Each required page then extends `body` and `head` as required
+* If you're re-using any elements (e.g. Save/Cancel button group), put that in a jade partial. This means we only have to edit one file if we want to make changes.
